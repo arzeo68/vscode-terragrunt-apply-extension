@@ -1,0 +1,47 @@
+{
+  "name": "terragrunt-apply",
+  "displayName": "Terragrunt Apply Here",
+  "description": "Right-click a file or folder to run terragrunt apply at that location.",
+  "version": "0.1.0",
+  "publisher": "local",
+  "engines": { "vscode": "^1.90.0" },
+  "categories": ["Other"],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      { "command": "terragruntApply.apply", "title": "Apply", "category": "Terragrunt" },
+      { "command": "terragruntApply.applySourceUpdate", "title": "Apply (source update)", "category": "Terragrunt" },
+      { "command": "terragruntApply.applyAutoApprove", "title": "Apply (auto approve)", "category": "Terragrunt" }
+    ],
+    "submenus": [
+      { "id": "terragrunt.apply", "label": "Terragrunt" }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "submenu": "terragrunt.apply",
+          "when": "explorerResourceIsFolder || resourceExtname == .hcl || resourceExtname == .tf",
+          "group": "navigation@99"
+        }
+      ],
+      "terragrunt.apply": [
+        { "command": "terragruntApply.apply", "group": "terragrunt@1" },
+        { "command": "terragruntApply.applySourceUpdate", "group": "terragrunt@2" },
+        { "command": "terragruntApply.applyAutoApprove", "group": "terragrunt@3" }
+      ]
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "test": "tsx --test 'src/**/*.test.ts'",
+    "package": "npx @vscode/vsce package",
+    "vscode:prepublish": "npm run compile"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/vscode": "^1.90.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0"
+  }
+}
