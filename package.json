@@ -24,8 +24,9 @@
   "scripts": {
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
-    "test": "tsx --test src/**/*.test.ts",
-    "package": "npx @vscode/vsce package"
+    "test": "tsx --test 'src/**/*.test.ts'",
+    "package": "npx @vscode/vsce package",
+    "vscode:prepublish": "npm run compile"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",

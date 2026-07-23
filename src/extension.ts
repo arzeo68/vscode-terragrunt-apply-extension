@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { resolveTargetDir } from './resolveTargetDir';
+import { resolveTargetDir, isDirectoryType } from './resolveTargetDir';
 
 export function activate(context: vscode.ExtensionContext): void {
   const disposable = vscode.commands.registerCommand(
@@ -15,7 +15,7 @@ export function activate(context: vscode.ExtensionContext): void {
       let isDirectory: boolean;
       try {
         const stat = await vscode.workspace.fs.stat(uri);
-        isDirectory = stat.type === vscode.FileType.Directory;
+        isDirectory = isDirectoryType(stat.type, vscode.FileType.Directory);
       } catch {
         vscode.window.showErrorMessage(
           `Terragrunt Apply: cannot access ${uri.fsPath}`
